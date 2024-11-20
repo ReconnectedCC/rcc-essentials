@@ -1,5 +1,6 @@
 package cc.reconnected.server.commands.teleport;
 
+import cc.reconnected.library.text.Placeholder;
 import cc.reconnected.server.RccServer;
 import cc.reconnected.server.core.TeleportTracker;
 import cc.reconnected.server.util.Components;
@@ -48,7 +49,7 @@ public class TeleportAskCommand {
             var placeholders = Map.of(
                     "targetPlayer", Text.of(targetName)
             );
-            source.sendFeedback(() -> Components.parse(
+            source.sendFeedback(() -> Placeholder.parse(
                     RccServer.CONFIG.textFormats.commands.teleportRequest.playerNotFound,
                     playerContext,
                     placeholders
@@ -72,13 +73,13 @@ public class TeleportAskCommand {
                         "/tpdeny " + request.requestId)
         );
 
-        target.sendMessage(Components.parse(
+        target.sendMessage(Placeholder.parse(
                 RccServer.CONFIG.textFormats.commands.teleportRequest.pendingTeleport,
                 targetContext,
                 placeholders
         ));
 
-        source.sendFeedback(() -> Components.parse(
+        source.sendFeedback(() -> Placeholder.parse(
                 RccServer.CONFIG.textFormats.commands.teleportRequest.requestSent,
                 playerContext
         ), false);

@@ -1,5 +1,6 @@
 package cc.reconnected.server.commands.teleport;
 
+import cc.reconnected.library.text.Placeholder;
 import cc.reconnected.server.RccServer;
 import cc.reconnected.server.core.BackTracker;
 import cc.reconnected.server.util.Components;
@@ -21,14 +22,14 @@ public class BackCommand {
 
                     var lastPosition = BackTracker.lastPlayerPositions.get(player.getUuid());
                     if (lastPosition == null) {
-                        context.getSource().sendFeedback(() -> Components.parse(
+                        context.getSource().sendFeedback(() -> Placeholder.parse(
                                 RccServer.CONFIG.textFormats.commands.back.noPosition,
                                 playerContext
                         ), false);
                         return 1;
                     }
 
-                    context.getSource().sendFeedback(() -> Components.parse(
+                    context.getSource().sendFeedback(() -> Placeholder.parse(
                             RccServer.CONFIG.textFormats.commands.back.teleporting,
                             playerContext
                     ), false);

@@ -1,5 +1,6 @@
 package cc.reconnected.server.commands.misc;
 
+import cc.reconnected.library.text.Placeholder;
 import cc.reconnected.server.RccServer;
 import cc.reconnected.server.util.Components;
 import com.mojang.brigadier.CommandDispatcher;
@@ -43,7 +44,7 @@ public class NearCommand {
         });
 
         if (list.isEmpty()) {
-            context.getSource().sendFeedback(() -> Components.parse(
+            context.getSource().sendFeedback(() -> Placeholder.parse(
                     RccServer.CONFIG.textFormats.commands.near.noOne,
                     playerContext
             ), false);
@@ -53,7 +54,7 @@ public class NearCommand {
         list.sort(Comparator.comparingDouble(ClosePlayers::distance));
 
         var listText = Text.empty();
-        var comma = Components.parse(RccServer.CONFIG.textFormats.commands.near.comma);
+        var comma = Placeholder.parse(RccServer.CONFIG.textFormats.commands.near.comma);
         for (int i = 0; i < list.size(); i++) {
             var player = list.get(i);
             if (i > 0) {
@@ -66,7 +67,7 @@ public class NearCommand {
 
             var targetContext = PlaceholderContext.of(sourcePlayer);
 
-            listText = listText.append(Components.parse(
+            listText = listText.append(Placeholder.parse(
                     RccServer.CONFIG.textFormats.commands.near.format,
                     targetContext,
                     placeholders
@@ -76,7 +77,7 @@ public class NearCommand {
         var placeholders = Map.of(
                 "playerList", (Text) listText
         );
-        context.getSource().sendFeedback(() -> Components.parse(
+        context.getSource().sendFeedback(() -> Placeholder.parse(
                 RccServer.CONFIG.textFormats.commands.near.nearestPlayers,
                 playerContext,
                 placeholders

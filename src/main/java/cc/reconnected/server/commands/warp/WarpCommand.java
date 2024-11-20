@@ -1,5 +1,6 @@
 package cc.reconnected.server.commands.warp;
 
+import cc.reconnected.library.text.Placeholder;
 import cc.reconnected.server.RccServer;
 import cc.reconnected.server.util.Components;
 import com.mojang.brigadier.CommandDispatcher;
@@ -41,14 +42,14 @@ public class WarpCommand {
         var playerContext = PlaceholderContext.of(player);
 
         if (!warps.containsKey(name)) {
-            context.getSource().sendFeedback(() -> Components.parse(
+            context.getSource().sendFeedback(() -> Placeholder.parse(
                     RccServer.CONFIG.textFormats.commands.warp.warpNotFound,
                     playerContext
             ), false);
             return 1;
         }
 
-        context.getSource().sendFeedback(() -> Components.parse(
+        context.getSource().sendFeedback(() -> Placeholder.parse(
                 RccServer.CONFIG.textFormats.commands.warp.teleporting,
                 playerContext,
                 Map.of(

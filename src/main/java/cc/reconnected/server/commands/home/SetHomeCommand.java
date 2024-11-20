@@ -1,5 +1,6 @@
 package cc.reconnected.server.commands.home;
 
+import cc.reconnected.library.text.Placeholder;
 import cc.reconnected.server.RccServer;
 import cc.reconnected.server.struct.ServerPosition;
 import cc.reconnected.server.util.Components;
@@ -54,7 +55,7 @@ public class SetHomeCommand {
 
         var exists = homes.containsKey(name);
         if (exists && !forced) {
-            var text = Components.parse(
+            var text = Placeholder.parse(
                     RccServer.CONFIG.textFormats.commands.home.homeExists,
                     playerContext,
                     placeholders
@@ -67,7 +68,7 @@ public class SetHomeCommand {
 
         var maxHomes = RccServer.CONFIG.homes.maxHomes;
         if(maxHomes >= 0 && homes.size() >= maxHomes && !exists) {
-            context.getSource().sendFeedback(() -> Components.parse(
+            context.getSource().sendFeedback(() -> Placeholder.parse(
                     RccServer.CONFIG.textFormats.commands.home.maxHomesReached,
                     playerContext,
                     placeholders
@@ -80,7 +81,7 @@ public class SetHomeCommand {
 
         RccServer.state.savePlayerState(player.getUuid(), playerState);
 
-        context.getSource().sendFeedback(() -> Components.parse(
+        context.getSource().sendFeedback(() -> Placeholder.parse(
                 RccServer.CONFIG.textFormats.commands.home.homeSetSuccess,
                 playerContext,
                 placeholders

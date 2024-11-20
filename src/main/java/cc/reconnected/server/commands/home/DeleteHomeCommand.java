@@ -1,5 +1,6 @@
 package cc.reconnected.server.commands.home;
 
+import cc.reconnected.library.text.Placeholder;
 import cc.reconnected.server.RccServer;
 import cc.reconnected.server.util.Components;
 import com.mojang.brigadier.CommandDispatcher;
@@ -46,7 +47,7 @@ public class DeleteHomeCommand {
         );
 
         if (!homes.containsKey(name)) {
-            context.getSource().sendFeedback(() -> Components.parse(
+            context.getSource().sendFeedback(() -> Placeholder.parse(
                     RccServer.CONFIG.textFormats.commands.home.homeNotFound,
                     playerContext,
                     placeholders
@@ -57,7 +58,7 @@ public class DeleteHomeCommand {
         homes.remove(name);
         RccServer.state.savePlayerState(player.getUuid(), playerState);
 
-        context.getSource().sendFeedback(() -> Components.parse(
+        context.getSource().sendFeedback(() -> Placeholder.parse(
                 RccServer.CONFIG.textFormats.commands.home.homeDeleted,
                 playerContext,
                 placeholders

@@ -1,5 +1,6 @@
 package cc.reconnected.server.core.customChat;
 
+import cc.reconnected.library.text.Placeholder;
 import cc.reconnected.server.RccServer;
 import cc.reconnected.server.util.Components;
 import eu.pb4.placeholders.api.PlaceholderContext;
@@ -28,7 +29,7 @@ public class CustomChatMessage {
         Text messageText = Components.chat(message, player);
 
         var playerContext = PlaceholderContext.of(player);
-        var text = Components.parse(
+        var text = Placeholder.parse(
                 RccServer.CONFIG.textFormats.chatFormat,
                 playerContext,
                 Map.of(

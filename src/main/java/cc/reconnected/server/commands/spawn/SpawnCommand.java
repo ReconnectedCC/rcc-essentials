@@ -1,5 +1,6 @@
 package cc.reconnected.server.commands.spawn;
 
+import cc.reconnected.library.text.Placeholder;
 import cc.reconnected.server.RccServer;
 import cc.reconnected.server.struct.ServerPosition;
 import cc.reconnected.server.util.Components;
@@ -26,7 +27,7 @@ public class SpawnCommand {
                         spawnPosition = new ServerPosition(spawnPos.getX(), spawnPos.getY(), spawnPos.getZ(), 0, 0, server.getOverworld());
                     }
 
-                    context.getSource().sendFeedback(() -> Components.parse(
+                    context.getSource().sendFeedback(() -> Placeholder.parse(
                             RccServer.CONFIG.textFormats.commands.spawn.teleporting,
                             playerContext
                     ), false);

@@ -1,5 +1,6 @@
 package cc.reconnected.server.core;
 
+import cc.reconnected.library.text.Placeholder;
 import cc.reconnected.server.RccServer;
 import cc.reconnected.server.api.events.PlayerActivityEvents;
 import cc.reconnected.server.api.events.RccEvents;
@@ -55,7 +56,7 @@ public class AfkTracker {
 
             var playerContext = PlaceholderContext.of(player);
 
-            RccServer.getInstance().broadcast(Components.parse(
+            RccServer.getInstance().broadcast(Placeholder.parse(
                     RccServer.CONFIG.textFormats.commands.afk.goneAfk,
                     playerContext
             ));
@@ -66,7 +67,7 @@ public class AfkTracker {
 
             var playerContext = PlaceholderContext.of(player);
 
-            RccServer.getInstance().broadcast(Components.parse(
+            RccServer.getInstance().broadcast(Placeholder.parse(
                     RccServer.CONFIG.textFormats.commands.afk.returnAfk,
                     playerContext
             ));

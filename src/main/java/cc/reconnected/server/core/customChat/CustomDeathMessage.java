@@ -1,5 +1,6 @@
 package cc.reconnected.server.core.customChat;
 
+import cc.reconnected.library.text.Placeholder;
 import cc.reconnected.server.RccServer;
 import cc.reconnected.server.util.Components;
 import eu.pb4.placeholders.api.PlaceholderContext;
@@ -14,7 +15,7 @@ public class CustomDeathMessage {
         var deathMessage = instance.getDeathMessage();
         var playerContext = PlaceholderContext.of(player);
 
-        return Components.parse(
+        return Placeholder.parse(
                 RccServer.CONFIG.textFormats.deathFormat,
                 playerContext,
                 Map.of("message", deathMessage)

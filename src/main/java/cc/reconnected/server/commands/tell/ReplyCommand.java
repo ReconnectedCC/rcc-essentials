@@ -1,5 +1,6 @@
 package cc.reconnected.server.commands.tell;
 
+import cc.reconnected.library.text.Placeholder;
 import cc.reconnected.server.RccServer;
 import cc.reconnected.server.util.Components;
 import com.mojang.brigadier.CommandDispatcher;
@@ -30,7 +31,7 @@ public class ReplyCommand {
 
         if (!TellCommand.lastSender.containsKey(senderName)) {
             var playerContext = PlaceholderContext.of(context.getSource());
-            source.sendFeedback(() -> Components.parse(
+            source.sendFeedback(() -> Placeholder.parse(
                     RccServer.CONFIG.textFormats.commands.tell.noLastSenderReply,
                     playerContext
             ), false);

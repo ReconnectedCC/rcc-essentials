@@ -1,5 +1,6 @@
 package cc.reconnected.server.commands.home;
 
+import cc.reconnected.library.text.Placeholder;
 import cc.reconnected.server.RccServer;
 import cc.reconnected.server.util.Components;
 import com.mojang.brigadier.CommandDispatcher;
@@ -47,7 +48,7 @@ public class HomeCommand {
 
         if (!homes.containsKey(name)) {
             context.getSource().sendFeedback(() ->
-                    Components.parse(
+                    Placeholder.parse(
                             RccServer.CONFIG.textFormats.commands.home.homeNotFound,
                             playerContext,
                             placeholders
@@ -57,7 +58,7 @@ public class HomeCommand {
         }
 
         context.getSource().sendFeedback(() ->
-                Components.parse(
+                Placeholder.parse(
                         RccServer.CONFIG.textFormats.commands.home.teleporting,
                         playerContext,
                         placeholders

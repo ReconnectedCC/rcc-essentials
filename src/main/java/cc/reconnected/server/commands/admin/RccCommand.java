@@ -1,8 +1,10 @@
 package cc.reconnected.server.commands.admin;
 
+import cc.reconnected.library.config.ConfigManager;
+import cc.reconnected.library.text.Placeholder;
 import cc.reconnected.server.RccServer;
+import cc.reconnected.server.RccServerConfig;
 import cc.reconnected.server.api.events.RccEvents;
-import cc.reconnected.server.config.ConfigManager;
 import cc.reconnected.server.util.Components;
 import com.mojang.brigadier.CommandDispatcher;
 import me.lucko.fabric.api.permissions.v0.Permissions;
@@ -31,7 +33,7 @@ public class RccCommand {
                             "version", Text.of(metadata.getVersion().getFriendlyString())
                     );
 
-                    var text = Components.parse(
+                    var text = Placeholder.parse(
                             "<gold>${name} v${version}</gold>",
                             placeholders);
                     context.getSource().sendFeedback(() -> text, false);
@@ -44,7 +46,7 @@ public class RccCommand {
                             context.getSource().sendFeedback(() -> Text.of("Reloading RCC config..."), true);
 
                             try {
-                                RccServer.CONFIG = ConfigManager.load();
+                                RccServer.CONFIG = ConfigManager.load(RccServerConfig.class);
                             } catch (Exception e) {
                                 RccServer.LOGGER.error("Failed to load RCC config", e);
                                 context.getSource().sendFeedback(() -> Text.of("Failed to load RCC config. Check console for more info."), true);

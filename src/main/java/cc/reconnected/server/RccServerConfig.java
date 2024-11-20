@@ -1,15 +1,14 @@
-package cc.reconnected.server.config;
+package cc.reconnected.server;
+
+import cc.reconnected.library.config.Config;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Config {
-    Config() {
-    }
-
-    public HttpApi httpApi = new HttpApi();
+@Config(RccServer.MOD_ID)
+public class RccServerConfig {
     public Afk afk = new Afk();
     public TeleportRequests teleportRequests = new TeleportRequests();
     public Homes homes = new Homes();
@@ -18,11 +17,6 @@ public class Config {
     public AutoRestart autoRestart = new AutoRestart();
     public Chat chat = new Chat();
     public TextFormats textFormats = new TextFormats();
-
-    public static class HttpApi {
-        public boolean enableHttpApi = true;
-        public int httpPort = 25581;
-    }
 
     public static class Afk {
         public int afkTimeTrigger = 300;

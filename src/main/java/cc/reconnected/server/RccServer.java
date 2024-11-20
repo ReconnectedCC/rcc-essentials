@@ -1,5 +1,6 @@
 package cc.reconnected.server;
 
+import cc.reconnected.library.config.ConfigManager;
 import cc.reconnected.server.api.events.RccEvents;
 import cc.reconnected.server.commands.admin.*;
 import cc.reconnected.server.commands.home.DeleteHomeCommand;
@@ -19,8 +20,6 @@ import cc.reconnected.server.commands.tell.TellCommand;
 import cc.reconnected.server.commands.warp.DeleteWarpCommand;
 import cc.reconnected.server.commands.warp.SetWarpCommand;
 import cc.reconnected.server.commands.warp.WarpCommand;
-import cc.reconnected.server.config.Config;
-import cc.reconnected.server.config.ConfigManager;
 import cc.reconnected.server.core.*;
 import cc.reconnected.server.core.customChat.CustomChatMessage;
 import cc.reconnected.server.data.StateManager;
@@ -45,7 +44,6 @@ import net.minecraft.util.WorldSavePath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
 import java.util.Date;
 
 
@@ -53,7 +51,7 @@ public class RccServer implements ModInitializer {
     public static final String MOD_ID = "rcc-server";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
-    public static Config CONFIG;
+    public static RccServerConfig CONFIG;
 
     public static final StateManager state = new StateManager();
 
@@ -93,7 +91,7 @@ public class RccServer implements ModInitializer {
         LOGGER.info("Starting rcc-server");
 
         try {
-            CONFIG = ConfigManager.load();
+            CONFIG = ConfigManager.load(RccServerConfig.class);
         } catch (Exception e) {
             LOGGER.error("Failed to load config. Refusing to continue.", e);
             return;
@@ -144,7 +142,6 @@ public class RccServer implements ModInitializer {
         TeleportTracker.register();
         BackTracker.register();
         TabList.register();
-        HttpApiServer.register();
         BossBarManager.register();
         AutoRestart.register();
 

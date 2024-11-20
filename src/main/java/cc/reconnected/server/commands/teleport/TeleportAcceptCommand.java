@@ -1,5 +1,6 @@
 package cc.reconnected.server.commands.teleport;
 
+import cc.reconnected.library.text.Placeholder;
 import cc.reconnected.server.RccServer;
 import cc.reconnected.server.core.TeleportTracker;
 import cc.reconnected.server.struct.ServerPosition;
@@ -28,7 +29,7 @@ public class TeleportAcceptCommand {
                     var request = playerRequests.pollLast();
 
                     if (request == null) {
-                        context.getSource().sendFeedback(() -> Components.parse(
+                        context.getSource().sendFeedback(() -> Placeholder.parse(
                                 RccServer.CONFIG.textFormats.commands.teleportRequest.noPending,
                                 playerContext
                         ), false);
@@ -54,7 +55,7 @@ public class TeleportAcceptCommand {
 
                             var request = playerRequests.stream().filter(req -> req.requestId.equals(uuid)).findFirst().orElse(null);
                             if (request == null) {
-                                context.getSource().sendFeedback(() -> Components.parse(
+                                context.getSource().sendFeedback(() -> Placeholder.parse(
                                         RccServer.CONFIG.textFormats.commands.teleportRequest.unavailable,
                                         playerContext
                                 ), false);
@@ -83,7 +84,7 @@ public class TeleportAcceptCommand {
         var playerContext = PlaceholderContext.of(player);
 
         if (sourcePlayer == null || targetPlayer == null) {
-            context.getSource().sendFeedback(() -> Components.parse(
+            context.getSource().sendFeedback(() -> Placeholder.parse(
                     RccServer.CONFIG.textFormats.commands.teleportRequest.playerUnavailable,
                     playerContext
             ), false);
@@ -93,23 +94,23 @@ public class TeleportAcceptCommand {
         if (player.getUuid().equals(request.target)) {
             var sourceContext = PlaceholderContext.of(sourcePlayer);
             // accepted a tpa from other to self
-            context.getSource().sendFeedback(() -> Components.parse(
+            context.getSource().sendFeedback(() -> Placeholder.parse(
                     RccServer.CONFIG.textFormats.commands.teleportRequest.requestAcceptedResult,
                     playerContext
             ), false);
-            sourcePlayer.sendMessage(Components.parse(
+            sourcePlayer.sendMessage(Placeholder.parse(
                     RccServer.CONFIG.textFormats.commands.teleportRequest.teleporting,
                     sourceContext
             ), false);
         } else {
             var targetContext = PlaceholderContext.of(targetPlayer);
             // accepted a tpa from self to other
-            context.getSource().sendFeedback(() -> Components.parse(
+            context.getSource().sendFeedback(() -> Placeholder.parse(
                     RccServer.CONFIG.textFormats.commands.teleportRequest.teleporting,
                     playerContext
             ), false);
 
-            targetPlayer.sendMessage(Components.parse(
+            targetPlayer.sendMessage(Placeholder.parse(
                     RccServer.CONFIG.textFormats.commands.teleportRequest.requestAccepted,
                     targetContext,
                     Map.of("player", sourcePlayer.getDisplayName())

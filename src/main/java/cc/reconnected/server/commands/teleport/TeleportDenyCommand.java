@@ -1,5 +1,6 @@
 package cc.reconnected.server.commands.teleport;
 
+import cc.reconnected.library.text.Placeholder;
 import cc.reconnected.server.RccServer;
 import cc.reconnected.server.core.TeleportTracker;
 import cc.reconnected.server.util.Components;
@@ -33,7 +34,7 @@ public class TeleportDenyCommand {
                     var request = playerRequests.pollLast();
 
                     if (request == null) {
-                        context.getSource().sendFeedback(() -> Components.parse(
+                        context.getSource().sendFeedback(() -> Placeholder.parse(
                                 RccServer.CONFIG.textFormats.commands.teleportRequest.noPending,
                                 playerContext
                         ), false);
@@ -54,7 +55,7 @@ public class TeleportDenyCommand {
 
                             var request = playerRequests.stream().filter(req -> req.requestId.equals(uuid)).findFirst().orElse(null);
                             if (request == null) {
-                                context.getSource().sendFeedback(() -> Components.parse(
+                                context.getSource().sendFeedback(() -> Placeholder.parse(
                                         RccServer.CONFIG.textFormats.commands.teleportRequest.unavailable,
                                         playerContext
                                 ), false);
@@ -87,14 +88,14 @@ public class TeleportDenyCommand {
 
         if (otherPlayer != null) {
             var otherContext = PlaceholderContext.of(otherPlayer);
-            otherPlayer.sendMessage(Components.parse(
+            otherPlayer.sendMessage(Placeholder.parse(
                     RccServer.CONFIG.textFormats.commands.teleportRequest.requestRefused,
                     otherContext,
                     Map.of("player", player.getDisplayName())
             ), false);
         }
 
-        context.getSource().sendFeedback(() -> Components.parse(
+        context.getSource().sendFeedback(() -> Placeholder.parse(
                 RccServer.CONFIG.textFormats.commands.teleportRequest.requestRefusedResult,
                 playerContext
         ), false);

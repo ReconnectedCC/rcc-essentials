@@ -1,5 +1,6 @@
 package cc.reconnected.server.commands.tell;
 
+import cc.reconnected.library.text.Placeholder;
 import cc.reconnected.server.RccServer;
 import cc.reconnected.server.util.Components;
 import com.mojang.brigadier.CommandDispatcher;
@@ -62,7 +63,7 @@ public class TellCommand {
                 );
                 var sourceContext = PlaceholderContext.of(source);
 
-                source.sendFeedback(() -> Components.parse(
+                source.sendFeedback(() -> Placeholder.parse(
                         RccServer.CONFIG.textFormats.commands.tell.playerNotFound,
                         sourceContext,
                         placeholders
@@ -84,7 +85,7 @@ public class TellCommand {
         }
 
 
-        var you = Components.parse(RccServer.CONFIG.textFormats.commands.tell.you);
+        var you = Placeholder.parse(RccServer.CONFIG.textFormats.commands.tell.you);
 
         var placeholdersToSource = Map.of(
                 "sourcePlayer", you,
@@ -104,22 +105,22 @@ public class TellCommand {
                 "message", parsedMessage
         );
 
-        var sourceText = Components.parse(
+        var sourceText = Placeholder.parse(
                 RccServer.CONFIG.textFormats.commands.tell.message,
                 sourceContext,
                 placeholdersToSource
         );
-        var targetText = Components.parse(
+        var targetText = Placeholder.parse(
                 RccServer.CONFIG.textFormats.commands.tell.message,
                 targetContext,
                 placeholdersToTarget
         );
-        var genericText = Components.parse(
+        var genericText = Placeholder.parse(
                 RccServer.CONFIG.textFormats.commands.tell.message,
                 serverContext,
                 placeholders
         );
-        var spyText = Components.parse(
+        var spyText = Placeholder.parse(
                 RccServer.CONFIG.textFormats.commands.tell.messageSpy,
                 serverContext,
                 placeholders
