@@ -1,33 +1,32 @@
 {
 	"schemaVersion": 1,
-	"id": "rcc-server",
+	"id": "rcc-essentials",
 	"version": "${version}",
-	"name": "rcc-server",
-	"description": "Server mod for the ReconnectedCC Minecraft server",
+	"name": "RccEssentials",
+	"description": "Server commands, custom chat formats and more",
 	"authors": [
 		"AlexDevs",
 		"EmmaKnijn",
 		"ReconnectedCC"
 	],
 	"contact": {
-		"sources": "https://github.com/ReconnectedCC/rcc-server"
+		"sources": "https://github.com/ReconnectedCC/rcc-essentials"
 	},
 	"license": "MIT License",
-	"icon": "assets/rcc-server/icon.png",
 	"environment": "*",
 	"entrypoints": {
 		"main": [
-			"cc.reconnected.server.RccServer"
+			"cc.reconnected.essentials.RccEssentials"
 		]
 	},
 	"mixins": [
-		"rcc-server.mixins.json"
+		"rcc-essentials.mixins.json"
 	],
 	"depends": {
+		"rcc-library": ">=1.0.0",
 		"fabricloader": ">=0.16.0",
 		"minecraft": "~1.20.1",
 		"java": ">=17",
-		"fabric-api": "*",
-		"luckperms": ">=5.4"
+		"fabric-api": "*"
 	}
 }

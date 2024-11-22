@@ -26,7 +26,7 @@ loom {
 	splitEnvironmentSourceSets()
 
 	mods {
-		"rcc-server" {
+		"rcc-library" {
 			sourceSet sourceSets.main
 			sourceSet sourceSets.client
 		}
@@ -42,7 +42,7 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	modImplementation "cc.reconnected:rcc-lib:${project.rcclib_version}"
+	modImplementation "cc.reconnected:rcc-library:${project.rcclibrary_version}"
 
 	compileOnly "net.luckperms:api:${project.luckpermsapi_version}"
 	include modImplementation("me.lucko:fabric-permissions-api:${project.permissions_api_version}")
