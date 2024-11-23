@@ -115,14 +115,13 @@ public class MailCommand {
         var deleteButton = Components.button(
                 RccEssentials.CONFIG.textFormats.commands.mail.deleteButton,
                 RccEssentials.CONFIG.textFormats.commands.mail.hoverDelete,
-                "/mail delete " + index
+                "/mail delete " + index + 1
         );
 
         var senderName = serverState.usernameCache.getOrDefault(mail.sender, mail.sender.toString());
         var dateFormatter = new SimpleDateFormat(RccEssentials.CONFIG.textFormats.dateTimeFormat);
         var message = MarkdownParser.defaultParser.parseNode(mail.message);
         var placeholders = Map.of(
-                "index", Text.of(String.valueOf(index)),
                 "sender", Text.of(senderName),
                 "date", Text.of(dateFormatter.format(mail.date)),
                 "message", message.toText(),

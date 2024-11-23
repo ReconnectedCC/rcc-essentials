@@ -138,6 +138,7 @@ public class RccEssentials implements ModInitializer {
         TabList.register();
         BossBarManager.register();
         AutoRestart.register();
+        MailManager.register();
 
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
             var player = handler.getPlayer();

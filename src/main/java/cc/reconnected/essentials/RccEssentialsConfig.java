@@ -192,6 +192,7 @@ public class RccEssentialsConfig {
             }
 
             public static class Mail {
+                public String mailPending = "<green>You have pending mails! Run <click:run_command:'/mail'><hover:show_text:Click to read mails><aqua>/mail</aqua></hover></click> to read your mails.</green>";
                 public String replyButton = "<gold>Reply</gold>";
                 public String deleteButton = "<red>Delete</red>";
                 public String readButton = "<gold>Read</gold>";
@@ -200,7 +201,7 @@ public class RccEssentialsConfig {
                 public String hoverRead = "Click to read the mail";
                 public String playerNotFound = "<red>Player <yellow>${recipient}</yellow> not found!</red>";
                 public String mailSent = "<gold>Mail sent!</gold>";
-                public String mailReceived = "<gold>You received a new mail!</gold>";
+                public String mailReceived = "<gold>You received a new mail! Run <click:run_command:'/mail'><hover:show_text:Click to read mails><aqua>/mail</aqua></hover></click> to read the emails!</gold>";
                 public String mailDetails = "<gold>From</gold> <yellow>${sender}</yellow> <gold>on</gold> <yellow>${date}</yellow>\n ${message}\n\n ${replyButton} ${deleteButton}";
                 public String mailListHeader = "<gold>Your mails:</gold>";
                 public String mailListEntry = "<yellow>${index}.</yellow> <gold>From</gold> <yellow>${sender}</yellow> <gold>on</gold> <yellow>${date}</yellow> ${readButton}";

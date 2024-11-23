@@ -2,6 +2,9 @@ package cc.reconnected.essentials.core;
 
 import cc.reconnected.essentials.RccEssentials;
 import cc.reconnected.essentials.struct.PlayerMail;
+import cc.reconnected.library.text.Placeholder;
+import eu.pb4.placeholders.api.PlaceholderContext;
+import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
 
 import java.util.List;
 import java.util.UUID;
@@ -32,5 +35,17 @@ public class MailManager {
         var playerState = RccEssentials.state.getPlayerState(playerUuid);
         playerState.mails.clear();
         RccEssentials.state.savePlayerState(playerUuid, playerState);
+    }
+
+    public static void register() {
+        ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
+            var player = handler.getPlayer();
+            var playerState = RccEssentials.state.getPlayerState(player.getUuid());
+            var playerContext = PlaceholderContext.of(player);
+
+            if(!playerState.mails.isEmpty()) {
+                player.sendMessage(Placeholder.parse(RccEssentials.CONFIG.textFormats.commands.mail.mailPending, playerContext));
+            }
+        });
     }
 }
