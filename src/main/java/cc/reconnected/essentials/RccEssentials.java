@@ -1,29 +1,17 @@
 package cc.reconnected.essentials;
 
-import cc.reconnected.essentials.commands.misc.MailCommand;
 import cc.reconnected.library.config.ConfigManager;
 import cc.reconnected.essentials.api.events.RccEvents;
-import cc.reconnected.essentials.commands.admin.*;
-import cc.reconnected.essentials.commands.home.DeleteHomeCommand;
-import cc.reconnected.essentials.commands.home.HomeCommand;
-import cc.reconnected.essentials.commands.home.SetHomeCommand;
-import cc.reconnected.essentials.commands.misc.AfkCommand;
-import cc.reconnected.essentials.commands.teleport.BackCommand;
-import cc.reconnected.essentials.commands.misc.NearCommand;
-import cc.reconnected.essentials.commands.spawn.SetSpawnCommand;
-import cc.reconnected.essentials.commands.spawn.SpawnCommand;
-import cc.reconnected.essentials.commands.teleport.TeleportAcceptCommand;
-import cc.reconnected.essentials.commands.teleport.TeleportAskCommand;
-import cc.reconnected.essentials.commands.teleport.TeleportAskHereCommand;
-import cc.reconnected.essentials.commands.teleport.TeleportDenyCommand;
-import cc.reconnected.essentials.commands.tell.ReplyCommand;
-import cc.reconnected.essentials.commands.tell.TellCommand;
-import cc.reconnected.essentials.commands.warp.DeleteWarpCommand;
-import cc.reconnected.essentials.commands.warp.SetWarpCommand;
-import cc.reconnected.essentials.commands.warp.WarpCommand;
 import cc.reconnected.essentials.core.*;
 import cc.reconnected.essentials.core.customChat.CustomChatMessage;
 import cc.reconnected.essentials.data.StateManager;
+import cc.reconnected.essentials.commands.admin.*;
+import cc.reconnected.essentials.commands.home.*;
+import cc.reconnected.essentials.commands.misc.*;
+import cc.reconnected.essentials.commands.teleport.*;
+import cc.reconnected.essentials.commands.spawn.*;
+import cc.reconnected.essentials.commands.tell.*;
+import cc.reconnected.essentials.commands.warp.*;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
@@ -139,6 +127,7 @@ public class RccEssentials implements ModInitializer {
         BossBarManager.register();
         AutoRestart.register();
         MailManager.register();
+        CommandSpy.register();
 
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
             var player = handler.getPlayer();

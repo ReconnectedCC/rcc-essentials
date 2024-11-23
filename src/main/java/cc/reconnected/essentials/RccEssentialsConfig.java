@@ -15,6 +15,7 @@ public class RccEssentialsConfig {
     public CustomTabList customTabList = new CustomTabList();
     public NearCommand nearCommand = new NearCommand();
     public AutoRestart autoRestart = new AutoRestart();
+    public CommandSpy commandSpy = new CommandSpy();
     public Chat chat = new Chat();
     public TextFormats textFormats = new TextFormats();
 
@@ -85,6 +86,14 @@ public class RccEssentialsConfig {
         public HashMap<String, String> replacements = new HashMap<>(Map.of(
                 ":shrug:", "¯\\\\_(ツ)_/¯"
         ));
+    }
+
+    public static class CommandSpy {
+        public String commandSpyFormat = "\uD83D\uDC41 <dark_gray>${player}:</dark_gray> <gray>/${command}</gray>";
+        public ArrayList<String> ignoredCommands = new ArrayList<>(List.of(
+                "tell", "w", "msg", "dm", "r"
+        ));
+
     }
 
     public static class TextFormats {

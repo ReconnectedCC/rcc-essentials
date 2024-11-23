@@ -13,8 +13,8 @@
     "SentMessageMixin",
     "ServerPlayerEntityMixin",
     "ServerPlayNetworkHandlerMixin",
-    "PlayerManagerMixin"
-
+    "PlayerManagerMixin",
+    "CommandDispatcherMixin"
   ],
   "injectors": {
     "defaultRequire": 1

@@ -8,14 +8,6 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 
 public final class RccEvents {
-    //@Deprecated(forRemoval = true)
-    public static final Event<Ready> READY = EventFactory.createArrayBacked(Ready.class, callbacks ->
-            (server, luckPerms) -> {
-                for (Ready callback : callbacks) {
-                    callback.onReady(server, luckPerms);
-                }
-            });
-
     public static final Event<Reload> RELOAD = EventFactory.createArrayBacked(Reload.class, callbacks ->
             (instance) -> {
                 for (Reload callback : callbacks) {
@@ -37,11 +29,12 @@ public final class RccEvents {
                 }
             });
 
-    @Deprecated(forRemoval = true)
-    @FunctionalInterface
-    public interface Ready {
-        void onReady(MinecraftServer server, LuckPerms luckPerms);
-    }
+    public static final Event<PlayerCommand> PLAYER_COMMAND = EventFactory.createArrayBacked(PlayerCommand.class, callbacks ->
+            (player, command) -> {
+                for (PlayerCommand callback : callbacks) {
+                    callback.onPlayerCommand(player, command);
+                }
+            });
 
     @FunctionalInterface
     public interface Reload {
@@ -56,5 +49,10 @@ public final class RccEvents {
     @FunctionalInterface
     public interface UsernameChange {
         void onUsernameChange(ServerPlayerEntity player, String previousUsername);
+    }
+
+    @FunctionalInterface
+    public interface PlayerCommand {
+        void onPlayerCommand(ServerPlayerEntity player, String command);
     }
 }
