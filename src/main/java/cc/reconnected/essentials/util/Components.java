@@ -34,8 +34,8 @@ public class Components {
                 .clickEvent(ClickEvent.runCommand(command));
     }
 
-    public static Text button(Text label, Text hoverText, String command) {
-        var format = RccEssentials.CONFIG.textFormats.commands.common.button;
+    public static Text button(Text label, Text hoverText, String command, boolean suggest) {
+        var format = suggest ? RccEssentials.CONFIG.textFormats.commands.common.buttonSuggest : RccEssentials.CONFIG.textFormats.commands.common.button;
         var placeholders = Map.of(
                 "label", label,
                 "hoverText", hoverText,
@@ -51,7 +51,19 @@ public class Components {
         var btn = button(
                 TextParserUtils.formatText(label),
                 TextParserUtils.formatText(hoverText),
-                command
+                command,
+                false
+        );
+
+        return btn;
+    }
+
+    public static Text buttonSuggest(String label, String hoverText, String command) {
+        var btn = button(
+                TextParserUtils.formatText(label),
+                TextParserUtils.formatText(hoverText),
+                command,
+                true
         );
 
         return btn;
@@ -83,16 +95,16 @@ public class Components {
     public static Text chat(String message, boolean allowAdvancedChatFormat) {
         var enableMarkdown = RccEssentials.CONFIG.chat.enableChatMarkdown;
 
-        for(var repl : RccEssentials.CONFIG.chat.replacements.entrySet() ) {
+        for (var repl : RccEssentials.CONFIG.chat.replacements.entrySet()) {
             message = message.replace(repl.getKey(), repl.getValue());
         }
 
-        if(!allowAdvancedChatFormat && !enableMarkdown) {
+        if (!allowAdvancedChatFormat && !enableMarkdown) {
             return Text.of(message);
         }
 
         NodeParser parser;
-        if(allowAdvancedChatFormat) {
+        if (allowAdvancedChatFormat) {
             parser = NodeParser.merge(TextParserV1.DEFAULT, MarkdownParser.defaultParser);
         } else {
             parser = MarkdownParser.defaultParser;
@@ -102,7 +114,7 @@ public class Components {
     }
 
     public static Text chat(String message, ServerCommandSource source) {
-        if(source.isExecutedByPlayer())
+        if (source.isExecutedByPlayer())
             return chat(message, source.getPlayer());
         return chat(message, true);
     }

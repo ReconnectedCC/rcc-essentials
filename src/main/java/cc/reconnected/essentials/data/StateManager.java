@@ -84,6 +84,8 @@ public class StateManager {
             return;
         serverState.saving = true;
 
+        //serverDataPath.toFile().renameTo(serverDataPath.getFileName().to);
+
         var json = gson.toJson(serverState, ServerState.class);
         try (var fw = new FileWriter(serverDataPath.toFile(), charset)) {
             fw.write(json);

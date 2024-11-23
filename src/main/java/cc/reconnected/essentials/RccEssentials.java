@@ -1,5 +1,6 @@
 package cc.reconnected.essentials;
 
+import cc.reconnected.essentials.commands.misc.MailCommand;
 import cc.reconnected.library.config.ConfigManager;
 import cc.reconnected.essentials.api.events.RccEvents;
 import cc.reconnected.essentials.commands.admin.*;
@@ -128,6 +129,7 @@ public class RccEssentials implements ModInitializer {
             RestartCommand.register(dispatcher);
 
             NearCommand.register(dispatcher);
+            MailCommand.register(dispatcher);
         });
 
         AfkTracker.register();
@@ -140,12 +142,14 @@ public class RccEssentials implements ModInitializer {
         ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
             var player = handler.getPlayer();
             var playerState = state.getPlayerState(player.getUuid());
+            var serverState = state.getServerState();
+
+            serverState.usernameCache.put(player.getUuid(), player.getGameProfile().getName());
 
             if (playerState.firstJoinedDate == null) {
                 LOGGER.info("Player {} joined for the first time!", player.getGameProfile().getName());
                 playerState.firstJoinedDate = new Date();
                 RccEvents.WELCOME.invoker().onWelcome(player, server);
-                var serverState = state.getServerState();
                 var spawnPosition = serverState.spawn;
 
                 if (spawnPosition != null) {
@@ -159,6 +163,10 @@ public class RccEssentials implements ModInitializer {
             }
             playerState.username = player.getGameProfile().getName();
             state.savePlayerState(player.getUuid(), playerState);
+        });
+
+        ServerLifecycleEvents.SERVER_STOPPING.register(server -> {
+            state.saveServerState();
         });
     }
 

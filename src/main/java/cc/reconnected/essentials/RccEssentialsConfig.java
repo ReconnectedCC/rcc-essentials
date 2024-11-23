@@ -102,6 +102,9 @@ public class RccEssentialsConfig {
         public String joinRenamedFormat = "<green>+</green> %player:displayname% <yellow>joined! <i>(Previously known as ${previousName})</i></yellow>";
         public String leaveFormat = "<red>-</red> %player:displayname% <yellow>left!</yellow>";
         public String deathFormat = "<gray>\u2620 ${message}</gray>";
+        public String dateFormat = "dd/MM/yyyy";
+        public String timeFormat = "HH:mm";
+        public String dateTimeFormat = "dd/MM/yyyy HH:mm";
 
         public Commands commands = new Commands();
 
@@ -115,10 +118,12 @@ public class RccEssentialsConfig {
             public Tell tell = new Tell();
             public Warp warp = new Warp();
             public Afk afk = new Afk();
+            public Mail mail = new Mail();
 
             public static class Common {
                 // `{{command}}` is replaced as a string before parsing
                 public String button = "<click:run_command:'{{command}}'><hover:show_text:'${hoverText}'><aqua>[</aqua>${label}<aqua>]</aqua></hover></click>";
+                public String buttonSuggest = "<click:suggest_command:'{{command}}'><hover:show_text:'${hoverText}'><aqua>[</aqua>${label}<aqua>]</aqua></hover></click>";
                 public String accept = "<green>Accept</green>";
                 public String refuse = "<red>Refuse</red>";
             }
@@ -185,8 +190,23 @@ public class RccEssentialsConfig {
                 public String returnAfk = "<gray>%player:displayname% is no longer AFK</gray>";
                 public String tag = "<gray>[AFK]</gray> ";
             }
+
+            public static class Mail {
+                public String replyButton = "<gold>Reply</gold>";
+                public String deleteButton = "<red>Delete</red>";
+                public String readButton = "<gold>Read</gold>";
+                public String hoverReply = "Click to reply to the mail";
+                public String hoverDelete = "Click to delete the mail";
+                public String hoverRead = "Click to read the mail";
+                public String playerNotFound = "<red>Player <yellow>${recipient}</yellow> not found!</red>";
+                public String mailSent = "<gold>Mail sent!</gold>";
+                public String mailReceived = "<gold>You received a new mail!</gold>";
+                public String mailDetails = "<gold>From</gold> <yellow>${sender}</yellow> <gold>on</gold> <yellow>${date}</yellow>\n ${message}\n\n ${replyButton} ${deleteButton}";
+                public String mailListHeader = "<gold>Your mails:</gold>";
+                public String mailListEntry = "<yellow>${index}.</yellow> <gold>From</gold> <yellow>${sender}</yellow> <gold>on</gold> <yellow>${date}</yellow> ${readButton}";
+                public String notFound = "<red>Mail not found</red>";
+                public String mailDeleted = "<gold>Mail deleted!</gold>";
+            }
         }
     }
-
-
 }
