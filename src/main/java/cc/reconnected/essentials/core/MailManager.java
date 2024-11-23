@@ -2,7 +2,6 @@ package cc.reconnected.essentials.core;
 
 import cc.reconnected.essentials.RccEssentials;
 import cc.reconnected.essentials.struct.PlayerMail;
-import cc.reconnected.library.text.Placeholder;
 
 import java.util.List;
 import java.util.UUID;

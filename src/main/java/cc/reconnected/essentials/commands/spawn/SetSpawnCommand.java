@@ -5,7 +5,6 @@ import cc.reconnected.essentials.struct.ServerPosition;
 import com.mojang.brigadier.CommandDispatcher;
 import me.lucko.fabric.api.permissions.v0.Permissions;
 import net.minecraft.server.command.ServerCommandSource;
-import net.minecraft.server.command.SetWorldSpawnCommand;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
