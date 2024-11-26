@@ -24,11 +24,13 @@ public class CommandInitializer {
             TeleportAcceptCommand.register(dispatcher);
             TeleportDenyCommand.register(dispatcher);
             BackCommand.register(dispatcher);
+            TeleportOfflineCommand.register(dispatcher);
 
             FlyCommand.register(dispatcher);
             GodCommand.register(dispatcher);
 
             SetSpawnCommand.register(dispatcher);
+            DelSpawnCommand.register(dispatcher);
             SpawnCommand.register(dispatcher);
 
             HomeCommand.register(dispatcher);
