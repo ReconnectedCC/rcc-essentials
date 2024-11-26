@@ -16,6 +16,8 @@ public class RccEssentialsConfig {
     public NearCommand nearCommand = new NearCommand();
     public AutoRestart autoRestart = new AutoRestart();
     public CommandSpy commandSpy = new CommandSpy();
+    public AutoAnnouncements autoAnnouncements = new AutoAnnouncements();
+    public Motd motd = new Motd();
     public Chat chat = new Chat();
     public TextFormats textFormats = new TextFormats();
 
@@ -93,7 +95,23 @@ public class RccEssentialsConfig {
         public ArrayList<String> ignoredCommands = new ArrayList<>(List.of(
                 "tell", "w", "msg", "dm", "r"
         ));
+    }
 
+    public static class AutoAnnouncements {
+        public boolean enableAnnouncements = true;
+        public boolean pickRandomly = false;
+        // every 5 mins
+        public int delay = 300;
+        public ArrayList<String> announcements = new ArrayList<>(List.of(
+                "Tip! <gray>Join our <url:'https://discord.reconnected.cc'><blue>Discord server</blue></url> to engage with the community!</gray>"
+        ));
+    }
+
+    public static class Motd {
+        public boolean enableMotd = true;
+        public ArrayList<String> motdLines = new ArrayList<>(List.of(
+                "<yellow><st>    </st></yellow> Welcome to <red>(</red> ReconnectedCC <red>)</red> <yellow><st>    </st></yellow>"
+        ));
     }
 
     public static class TextFormats {

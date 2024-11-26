@@ -31,7 +31,7 @@ public class CommandSpy {
                 var permissions = luckperms.getPlayerAdapter(ServerPlayerEntity.class).getPermissionData(player);
                 var commandSpyEnabled = permissions.checkPermission("rcc.commandspy").asBoolean();
 
-                if(commandSpyEnabled) {
+                if(commandSpyEnabled && !player.getUuid().equals(source.getUuid())) {
                     player.sendMessage(message, false);
                 }
             }

@@ -29,6 +29,7 @@ public class CommandInitializer {
             FlyCommand.register(dispatcher);
             GodCommand.register(dispatcher);
             SudoCommand.register(dispatcher);
+            BroadcastCommand.register(dispatcher);
 
             SetSpawnCommand.register(dispatcher);
             DelSpawnCommand.register(dispatcher);
@@ -48,6 +49,7 @@ public class CommandInitializer {
             NearCommand.register(dispatcher);
             MailCommand.register(dispatcher);
             SeenCommand.register(dispatcher);
+            MotdCommand.register(dispatcher);
         });
     }
 }
