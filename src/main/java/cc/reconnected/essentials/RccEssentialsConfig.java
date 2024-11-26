@@ -128,6 +128,7 @@ public class RccEssentialsConfig {
             public Warp warp = new Warp();
             public Afk afk = new Afk();
             public Mail mail = new Mail();
+            public Seen seen = new Seen();
 
             public static class Common {
                 // `{{command}}` is replaced as a string before parsing
@@ -216,6 +217,20 @@ public class RccEssentialsConfig {
                 public String mailListEntry = "<yellow>${index}.</yellow> <gold>From</gold> <yellow>${sender}</yellow> <gold>on</gold> <yellow>${date}</yellow> ${readButton}";
                 public String notFound = "<red>Mail not found</red>";
                 public String mailDeleted = "<gold>Mail deleted!</gold>";
+            }
+
+            public static class Seen {
+                public String playerNotFound = "<red>Could not find this player</red>";
+                public ArrayList<String> base = new ArrayList<>(List.of(
+                        "<yellow>${username}</yellow><gold>'s information:</gold>",
+                        " <gold>UUID:</gold> <yellow>${uuid}</yellow>",
+                        " <gold>First seen:</gold> <yellow>${firstSeenDate}</yellow>",
+                        " <gold>Last seen:</gold> <yellow>${lastSeenDate}</yellow>"
+                ));
+                public ArrayList<String> extended = new ArrayList<>(List.of(
+                        " <gold>IP Address:</gold> <yellow>${ipAddress}</yellow>",
+                        " <gold>Location:</gold> <yellow>${location}</yellow>"
+                ));
             }
         }
     }

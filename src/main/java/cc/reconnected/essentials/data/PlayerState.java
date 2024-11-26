@@ -21,6 +21,10 @@ public class PlayerState {
     @Expose
     public @Nullable Date firstJoinedDate;
     @Expose
+    public @Nullable Date lastSeenDate;
+    @Expose
+    public @Nullable String ipAddress;
+    @Expose
     public @Nullable ServerPosition logoffPosition = null;
     @Expose
     public int activeTime = 0;

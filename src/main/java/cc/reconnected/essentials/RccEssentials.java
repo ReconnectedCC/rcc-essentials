@@ -97,32 +97,6 @@ public class RccEssentials implements ModInitializer {
         AutoRestart.register();
         MailManager.register();
         CommandSpy.register();
-
-        ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
-            var player = handler.getPlayer();
-            var playerState = state.getPlayerState(player.getUuid());
-            var serverState = state.getServerState();
-
-            serverState.usernameCache.put(player.getUuid(), player.getGameProfile().getName());
-
-            if (playerState.firstJoinedDate == null) {
-                LOGGER.info("Player {} joined for the first time!", player.getGameProfile().getName());
-                playerState.firstJoinedDate = new Date();
-                RccEvents.WELCOME.invoker().onWelcome(player, server);
-                var spawnPosition = serverState.spawn;
-
-                if (spawnPosition != null) {
-                    spawnPosition.teleport(player, false);
-                }
-            }
-
-            if (playerState.username != null && !playerState.username.equals(player.getGameProfile().getName())) {
-                LOGGER.info("Player {} has changed their username from {}", player.getGameProfile().getName(), playerState.username);
-                RccEvents.USERNAME_CHANGE.invoker().onUsernameChange(player, playerState.username);
-            }
-            playerState.username = player.getGameProfile().getName();
-            state.savePlayerState(player.getUuid(), playerState);
-        });
     }
 
     public void broadcastComponent(MinecraftServer server, Component message) {

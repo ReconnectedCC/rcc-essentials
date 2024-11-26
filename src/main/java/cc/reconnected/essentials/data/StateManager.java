@@ -1,6 +1,7 @@
 package cc.reconnected.essentials.data;
 
 import cc.reconnected.essentials.RccEssentials;
+import cc.reconnected.essentials.api.events.RccEvents;
 import cc.reconnected.essentials.struct.ServerPosition;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -14,6 +15,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
+import java.util.Date;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -65,11 +67,40 @@ public class StateManager {
 
         ServerLifecycleEvents.SERVER_STOPPING.register(serverState -> save());
 
-        ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> loadPlayerState(handler.player.getUuid()));
+        ServerPlayConnectionEvents.JOIN.register((handler, sender, server) -> {
+            var player = handler.getPlayer();
+            var playerState = loadPlayerState(handler.player.getUuid());
+            var serverState = getServerState();
+
+            serverState.usernameCache.put(player.getUuid(), player.getGameProfile().getName());
+
+            playerState.username = player.getGameProfile().getName();
+            playerState.lastSeenDate = new Date();
+            playerState.ipAddress = handler.getPlayer().getIp();
+
+            if (playerState.firstJoinedDate == null) {
+                RccEssentials.LOGGER.info("Player {} joined for the first time!", player.getGameProfile().getName());
+                playerState.firstJoinedDate = new Date();
+                RccEvents.WELCOME.invoker().onWelcome(player, server);
+                var spawnPosition = serverState.spawn;
+
+                if (spawnPosition != null) {
+                    spawnPosition.teleport(player, false);
+                }
+            }
+
+            if (playerState.username != null && !playerState.username.equals(player.getGameProfile().getName())) {
+                RccEssentials.LOGGER.info("Player {} has changed their username from {}", player.getGameProfile().getName(), playerState.username);
+                RccEvents.USERNAME_CHANGE.invoker().onUsernameChange(player, playerState.username);
+            }
+
+            savePlayerState(player.getUuid(), playerState);
+        });
 
         ServerPlayConnectionEvents.DISCONNECT.register((handler, client) -> {
             var playerState = getPlayerState(handler.getPlayer().getUuid());
             playerState.logoffPosition = new ServerPosition(handler.getPlayer());
+            playerState.lastSeenDate = new Date();
             savePlayerState(handler.getPlayer().getUuid(), playerState);
             playerStates.remove(handler.player.getUuid());
         });

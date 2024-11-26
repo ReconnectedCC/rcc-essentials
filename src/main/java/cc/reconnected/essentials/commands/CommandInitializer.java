@@ -47,6 +47,7 @@ public class CommandInitializer {
 
             NearCommand.register(dispatcher);
             MailCommand.register(dispatcher);
+            SeenCommand.register(dispatcher);
         });
     }
 }
