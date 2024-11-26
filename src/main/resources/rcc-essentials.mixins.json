@@ -14,7 +14,8 @@
     "ServerPlayerEntityMixin",
     "ServerPlayNetworkHandlerMixin",
     "PlayerManagerMixin",
-    "CommandDispatcherMixin"
+    "CommandDispatcherMixin",
+    "MinecraftServerMixin"
   ],
   "injectors": {
     "defaultRequire": 1

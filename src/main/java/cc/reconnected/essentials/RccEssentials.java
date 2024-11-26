@@ -1,19 +1,13 @@
 package cc.reconnected.essentials;
 
+import cc.reconnected.essentials.api.events.WorldSave;
+import cc.reconnected.essentials.commands.CommandInitializer;
 import cc.reconnected.library.config.ConfigManager;
 import cc.reconnected.essentials.api.events.RccEvents;
 import cc.reconnected.essentials.core.*;
 import cc.reconnected.essentials.core.customChat.CustomChatMessage;
 import cc.reconnected.essentials.data.StateManager;
-import cc.reconnected.essentials.commands.admin.*;
-import cc.reconnected.essentials.commands.home.*;
-import cc.reconnected.essentials.commands.misc.*;
-import cc.reconnected.essentials.commands.teleport.*;
-import cc.reconnected.essentials.commands.spawn.*;
-import cc.reconnected.essentials.commands.tell.*;
-import cc.reconnected.essentials.commands.warp.*;
 import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.command.v2.CommandRegistrationCallback;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.message.v1.ServerMessageEvents;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
@@ -84,42 +78,9 @@ public class RccEssentials implements ModInitializer {
             this.adventure = FabricServerAudiences.of(server);
         });
         ServerLifecycleEvents.SERVER_STOPPED.register(server -> this.adventure = null);
+        WorldSave.EVENT.register((server1, suppressLogs, flush, force) -> state.save());
 
-        CommandRegistrationCallback.EVENT.register((dispatcher, registryAccess, environment) -> {
-            RccCommand.register(dispatcher);
-
-            AfkCommand.register(dispatcher);
-
-            TellCommand.register(dispatcher);
-            ReplyCommand.register(dispatcher);
-
-            TeleportAskCommand.register(dispatcher);
-            TeleportAskHereCommand.register(dispatcher);
-            TeleportAcceptCommand.register(dispatcher);
-            TeleportDenyCommand.register(dispatcher);
-            BackCommand.register(dispatcher);
-
-            FlyCommand.register(dispatcher);
-            GodCommand.register(dispatcher);
-
-            SetSpawnCommand.register(dispatcher);
-            SpawnCommand.register(dispatcher);
-
-            HomeCommand.register(dispatcher);
-            SetHomeCommand.register(dispatcher);
-            DeleteHomeCommand.register(dispatcher);
-
-            WarpCommand.register(dispatcher);
-            SetWarpCommand.register(dispatcher);
-            DeleteWarpCommand.register(dispatcher);
-
-            TimeBarCommand.register(dispatcher);
-            RestartCommand.register(dispatcher);
-
-            NearCommand.register(dispatcher);
-            MailCommand.register(dispatcher);
-        });
-
+        CommandInitializer.register();
         AfkTracker.register();
         TeleportTracker.register();
         BackTracker.register();
@@ -153,10 +114,6 @@ public class RccEssentials implements ModInitializer {
             }
             playerState.username = player.getGameProfile().getName();
             state.savePlayerState(player.getUuid(), playerState);
-        });
-
-        ServerLifecycleEvents.SERVER_STOPPING.register(server -> {
-            state.saveServerState();
         });
     }
 
