@@ -4,7 +4,6 @@ import cc.reconnected.essentials.RccEssentials;
 import cc.reconnected.library.text.Placeholder;
 import eu.pb4.placeholders.api.PlaceholderContext;
 import net.fabricmc.fabric.api.networking.v1.ServerPlayConnectionEvents;
-import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.text.Text;
 
 public class Motd {
