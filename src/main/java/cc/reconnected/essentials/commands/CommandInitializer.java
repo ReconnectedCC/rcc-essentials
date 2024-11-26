@@ -28,6 +28,7 @@ public class CommandInitializer {
 
             FlyCommand.register(dispatcher);
             GodCommand.register(dispatcher);
+            SudoCommand.register(dispatcher);
 
             SetSpawnCommand.register(dispatcher);
             DelSpawnCommand.register(dispatcher);
