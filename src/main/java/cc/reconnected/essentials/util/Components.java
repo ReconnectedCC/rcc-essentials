@@ -9,10 +9,6 @@ import eu.pb4.placeholders.api.parsers.NodeParser;
 import eu.pb4.placeholders.api.parsers.PatternPlaceholderParser;
 import eu.pb4.placeholders.api.parsers.TextParserV1;
 import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.ComponentLike;
-import net.kyori.adventure.text.event.ClickEvent;
-import net.kyori.adventure.text.event.HoverEvent;
-import net.kyori.adventure.text.format.NamedTextColor;
 import net.kyori.adventure.text.serializer.json.JSONComponentSerializer;
 import net.minecraft.network.message.SignedMessage;
 import net.minecraft.server.command.ServerCommandSource;
@@ -23,17 +19,6 @@ import net.minecraft.text.Text;
 import java.util.Map;
 
 public class Components {
-    @Deprecated
-    public static Component makeButton(ComponentLike text, ComponentLike hoverText, String command) {
-        return Component.empty()
-                .append(Component.text("["))
-                .append(text)
-                .append(Component.text("]"))
-                .color(NamedTextColor.AQUA)
-                .hoverEvent(HoverEvent.showText(hoverText))
-                .clickEvent(ClickEvent.runCommand(command));
-    }
-
     public static Text button(Text label, Text hoverText, String command, boolean suggest) {
         var format = suggest ? RccEssentials.CONFIG.textFormats.commands.common.buttonSuggest : RccEssentials.CONFIG.textFormats.commands.common.button;
         var placeholders = Map.of(
