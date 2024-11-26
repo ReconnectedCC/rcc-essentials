@@ -17,8 +17,6 @@ import org.jetbrains.annotations.Nullable;
 import java.time.Duration;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
@@ -111,9 +109,8 @@ public class AutoRestart {
         rcc.broadcast(text);
 
         var pitch = RccEssentials.CONFIG.autoRestart.restartSoundPitch;
-        var soundEvent = SoundEvent.of(Identifier.tryParse(RccEssentials.CONFIG.autoRestart.restartSound));
         server.getPlayerManager().getPlayerList().forEach(player -> {
-            player.playSound(soundEvent, SoundCategory.MASTER, 1f, pitch);
+            player.playSound(sound, SoundCategory.MASTER, 1f, pitch);
         });
     }
 
