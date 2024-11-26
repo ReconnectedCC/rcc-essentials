@@ -2,13 +2,10 @@ package cc.reconnected.essentials.core;
 
 import cc.reconnected.essentials.RccEssentials;
 import cc.reconnected.essentials.api.events.BossBarEvents;
-import cc.reconnected.essentials.util.Components;
+import cc.reconnected.library.text.Placeholder;
+import eu.pb4.placeholders.api.PlaceholderContext;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerLifecycleEvents;
 import net.fabricmc.fabric.api.event.lifecycle.v1.ServerTickEvents;
-import net.kyori.adventure.text.Component;
-import net.kyori.adventure.text.minimessage.MiniMessage;
-import net.kyori.adventure.text.minimessage.tag.resolver.Placeholder;
-import net.kyori.adventure.text.minimessage.tag.resolver.TagResolver;
 import net.minecraft.entity.boss.BossBar;
 import net.minecraft.entity.boss.CommandBossBar;
 import net.minecraft.server.MinecraftServer;
@@ -17,8 +14,10 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 import java.util.Collection;
+import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.ConcurrentLinkedDeque;
+import java.util.concurrent.TimeUnit;
 
 public class BossBarManager {
     private static BossBarManager instance;
@@ -29,31 +28,29 @@ public class BossBarManager {
 
     private static MinecraftServer server;
     private static ConcurrentLinkedDeque<TimeBar> timeBars = new ConcurrentLinkedDeque<>();
-    private static final MiniMessage miniMessage = MiniMessage.miniMessage();
 
     public static void register() {
         instance = new BossBarManager();
 
         ServerLifecycleEvents.SERVER_STARTING.register(s -> server = s);
 
-        ServerTickEvents.END_SERVER_TICK.register(server -> {
-            // every second
-            if (server.getTicks() % 20 == 0) {
-                for (var timeBar : timeBars) {
-                    var remove = timeBar.elapse();
-                    BossBarEvents.PROGRESS.invoker().onProgress(timeBar, server);
+        RccEssentials.scheduler.scheduleAtFixedRate(BossBarManager::updateBars, 0, 1, TimeUnit.SECONDS);
+    }
 
-                    var players = server.getPlayerManager().getPlayerList();
-                    showBar(players, timeBar);
+    public static void updateBars() {
+        for (var timeBar : timeBars) {
+            var remove = timeBar.elapse();
+            BossBarEvents.PROGRESS.invoker().onProgress(timeBar, server);
 
-                    if (remove) {
-                        timeBars.remove(timeBar);
-                        BossBarEvents.END.invoker().onEnd(timeBar, server);
-                        hideBar(players, timeBar);
-                    }
-                }
+            var players = server.getPlayerManager().getPlayerList();
+            showBar(players, timeBar);
+
+            if (remove) {
+                timeBars.remove(timeBar);
+                BossBarEvents.END.invoker().onEnd(timeBar, server);
+                hideBar(players, timeBar);
             }
-        });
+        }
     }
 
     private static void showBar(Collection<ServerPlayerEntity> players, TimeBar timeBar) {
@@ -131,21 +128,25 @@ public class BossBarManager {
 
         public void updateName() {
             var text = parseLabel(label);
-            bossBar.setName(Components.toText(text));
+            bossBar.setName(text);
         }
 
-        public Component parseLabel(String labelString) {
+        public Text parseLabel(String labelString) {
             var totalTime = formatTime(this.time);
             var elapsedTime = formatTime(this.elapsedSeconds);
 
             var remaining = getRemainingSeconds();
             var remainingTime = formatTime(remaining);
 
-            return miniMessage.deserialize(labelString, TagResolver.resolver(
-                    Placeholder.parsed("total_time", totalTime),
-                    Placeholder.parsed("elapsed_time", elapsedTime),
-                    Placeholder.parsed("remaining_time", remainingTime)
-            ));
+            var placeholders = Map.of(
+                    "total_time", Text.of(totalTime),
+                    "elapsed_time", Text.of(elapsedTime),
+                    "remaining_time", Text.of(remainingTime)
+            );
+
+            var serverContext = PlaceholderContext.of(server);
+
+            return Placeholder.parse(labelString, serverContext, placeholders);
         }
 
         public UUID getUuid() {

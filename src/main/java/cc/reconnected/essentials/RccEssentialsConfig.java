@@ -33,7 +33,7 @@ public class RccEssentialsConfig {
 
     public static class CustomTabList {
         public boolean enableTabList = true;
-        public int tabListTickDelay = 5;
+        public int tabListDelay = 250;
         public double tabPhasePeriod = 300;
         public ArrayList<String> tabHeader = new ArrayList<>(List.of(
                 "<gradient:#DEDE6C:#CC4C4C:{phase}><st>                                  </st></gradient>"
@@ -53,9 +53,9 @@ public class RccEssentialsConfig {
 
     public static class AutoRestart {
         public boolean enableAutoRestart = true;
-        public String restartBarLabel = "Server restarting in <remaining_time>";
+        public String restartBarLabel = "Server restarting in ${remaining_time}";
         public String restartKickMessage = "The server is restarting!";
-        public String restartChatMessage = "<red>The server is restarting in </red><gold><remaining_time></gold>";
+        public String restartChatMessage = "<red>The server is restarting in </red><gold>${remaining_time}</gold>";
 
         public ArrayList<String> restartAt = new ArrayList<>(List.of(
                 "06:00",

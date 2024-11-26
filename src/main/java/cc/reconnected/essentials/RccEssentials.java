@@ -26,6 +26,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Date;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
 
 
 public class RccEssentials implements ModInitializer {
@@ -43,6 +45,8 @@ public class RccEssentials implements ModInitializer {
     }
 
     public static MinecraftServer server;
+
+    public static ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
 
     private volatile FabricServerAudiences adventure;
 
@@ -77,7 +81,11 @@ public class RccEssentials implements ModInitializer {
             state.register(server.getSavePath(WorldSavePath.ROOT).resolve("data").resolve(RccEssentials.MOD_ID));
             this.adventure = FabricServerAudiences.of(server);
         });
-        ServerLifecycleEvents.SERVER_STOPPED.register(server -> this.adventure = null);
+        ServerLifecycleEvents.SERVER_STOPPED.register(server -> {
+            this.adventure = null;
+            scheduler.shutdownNow();
+        });
+        ServerLifecycleEvents.SERVER_STOPPING.register(server -> scheduler.shutdown());
         WorldSave.EVENT.register((server1, suppressLogs, flush, force) -> state.save());
 
         CommandInitializer.register();

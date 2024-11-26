@@ -50,7 +50,6 @@ public class GodCommand {
         var abilities = player.getAbilities();
 
         abilities.invulnerable = !abilities.invulnerable;
-        //player.setInvulnerable(!player.isInvulnerable());
         player.sendAbilitiesUpdate();
 
         return Text.literal(
