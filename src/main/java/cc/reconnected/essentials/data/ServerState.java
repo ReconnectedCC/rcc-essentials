@@ -8,8 +8,8 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class ServerState {
-    public boolean dirty = false;
-    public boolean saving = false;
+    boolean dirty = false;
+    boolean saving = false;
 
     @Expose
     public @Nullable ServerPosition spawn;

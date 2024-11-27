@@ -11,8 +11,8 @@ import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class PlayerState {
-    public boolean dirty = false;
-    public boolean saving = false;
+    boolean dirty = false;
+    boolean saving = false;
 
     @Expose
     public UUID uuid;
