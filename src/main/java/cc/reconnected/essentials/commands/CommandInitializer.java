@@ -38,10 +38,12 @@ public class CommandInitializer {
             HomeCommand.register(dispatcher);
             SetHomeCommand.register(dispatcher);
             DeleteHomeCommand.register(dispatcher);
+            HomesCommand.register(dispatcher);
 
             WarpCommand.register(dispatcher);
             SetWarpCommand.register(dispatcher);
             DeleteWarpCommand.register(dispatcher);
+            WarpsCommand.register(dispatcher);
 
             TimeBarCommand.register(dispatcher);
             RestartCommand.register(dispatcher);

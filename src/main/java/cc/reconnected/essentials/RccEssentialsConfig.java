@@ -177,6 +177,10 @@ public class RccEssentialsConfig {
                 public String forceSetLabel = "<yellow>Force set home</yellow>";
                 public String forceSetHover = "Click to force setting new home";
                 public String homeDeleted = "<gold>Home <yellow>${home}</yellow> deleted!</gold>";
+                public String homeList = "<gold>Your homes: ${homeList}</gold>";
+                public String homesFormat = "<run_cmd:'/home ${home}'><hover:'Click to teleport'><yellow>${home}</yellow></hover></run_cmd>";
+                public String homesComma = "<gold>, </gold>";
+                public String noHomes = "<gold>You did not set any home so far.</gold>";
             }
 
             public static class Spawn {
@@ -211,6 +215,10 @@ public class RccEssentialsConfig {
             public static class Warp {
                 public String teleporting = "<gold>Warping to <yellow>${warp}</yellow>...</gold>";
                 public String warpNotFound = "<red>The warp <yellow>${warp}</yellow> does not exist!</red>";
+                public String warpList = "<gold>Server warps: ${warpList}</gold>";
+                public String warpsFormat = "<run_cmd:'/warp ${warp}'><hover:'Click to teleport'><yellow>${warp}</yellow></hover></run_cmd>";
+                public String warpsComma = "<gold>, </gold>";
+                public String noWarps = "<gold>There are no warps so far.</gold>";
             }
 
             public static class Afk {
