@@ -32,6 +32,8 @@ public class PlayerState {
     public ConcurrentHashMap<String, ServerPosition> homes = new ConcurrentHashMap<>();
     @Expose
     public ArrayList<PlayerMail> mails = new ArrayList<>();
-
-
+    @Expose
+    public boolean muted = false;
+    @Expose
+    public ArrayList<UUID> ignoredPlayers = new ArrayList<>();
 }

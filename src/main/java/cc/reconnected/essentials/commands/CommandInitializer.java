@@ -47,6 +47,7 @@ public class CommandInitializer {
 
             TimeBarCommand.register(dispatcher);
             RestartCommand.register(dispatcher);
+            MuteCommand.register(dispatcher);
 
             NearCommand.register(dispatcher);
             MailCommand.register(dispatcher);

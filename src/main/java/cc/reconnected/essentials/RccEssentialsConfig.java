@@ -133,6 +133,8 @@ public class RccEssentialsConfig {
         public String timeFormat = "HH:mm";
         public String dateTimeFormat = "dd/MM/yyyy HH:mm";
 
+        public String youAreMuted = "<gold>You are muted!</gold>";
+
         public Commands commands = new Commands();
 
         public static class Commands {

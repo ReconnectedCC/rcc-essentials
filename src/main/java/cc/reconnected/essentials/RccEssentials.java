@@ -96,6 +96,7 @@ public class RccEssentials implements ModInitializer {
         CommandSpy.register();
         AutoAnnouncements.register();
         Motd.register();
+        MuteManager.register();
     }
 
     public void broadcastComponent(MinecraftServer server, Component message) {
