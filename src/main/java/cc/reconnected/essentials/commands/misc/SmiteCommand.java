@@ -36,11 +36,16 @@ public class SmiteCommand {
     private static int execute(CommandContext<ServerCommandSource> context, int times) throws CommandSyntaxException {
         var targets = EntityArgumentType.getPlayers(context, "target");
         for (var i = 0; i < times; i++) {
-            targets.forEach(target -> {
-                entityType.create(target.getServerWorld(), null, (entity) -> {
-                    target.getWorld().spawnEntity(entity);
-                }, target.getBlockPos(), SpawnReason.COMMAND, false, false);
-            });
+            targets.forEach(target ->
+                    entityType.create(
+                            target.getServerWorld(),
+                            null,
+                            (entity) -> target.getWorld().spawnEntity(entity),
+                            target.getBlockPos(),
+                            SpawnReason.COMMAND,
+                            false,
+                            false)
+            );
         }
 
         return targets.size();
