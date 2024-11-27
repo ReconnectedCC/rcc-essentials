@@ -1,6 +1,7 @@
 package cc.reconnected.essentials;
 
 import cc.reconnected.library.config.Config;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -98,12 +99,19 @@ public class RccEssentialsConfig {
     }
 
     public static class AutoAnnouncements {
+        public record Announcement(String text, @Nullable String permission, @Nullable Boolean result) {
+            public Announcement(String text) {
+                this(text, null, null);
+            }
+        }
+
         public boolean enableAnnouncements = true;
         public boolean pickRandomly = false;
         // every 5 mins
         public int delay = 300;
-        public ArrayList<String> announcements = new ArrayList<>(List.of(
-                "Tip! <gray>Join our <url:'https://discord.reconnected.cc'><blue>Discord server</blue></url> to engage with the community!</gray>"
+        public ArrayList<Announcement> announcements = new ArrayList<>(List.of(
+                new Announcement("Tip! <gray>Join our <url:'https://discord.reconnected.cc'><blue>Discord server</blue></url> to engage with the community!</gray>"),
+                new Announcement("Fun fact! <gray>This announcement is only visible to players that do not have the 'rcc.example' permission granted!</gray>", "rcc.example", false)
         ));
     }
 
