@@ -50,6 +50,8 @@ public class CommandInitializer {
             MailCommand.register(dispatcher);
             SeenCommand.register(dispatcher);
             MotdCommand.register(dispatcher);
+            SuicideCommand.register(dispatcher);
+            SmiteCommand.register(dispatcher);
         });
     }
 }
